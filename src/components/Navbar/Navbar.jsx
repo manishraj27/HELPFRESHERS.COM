@@ -1,7 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Menu, MenuItem, HoveredLink, ProductItem } from "../ui/navbar-menu";
+import { Menu, MenuItem, HoveredLink } from "../ui/navbar-menu";
 import HelpFreshersLogo from "../../assets/Logo/HelpFreshersLogo";
 import { Link } from "react-router-dom";
+
+// Import icons
+import { 
+  BookOpen, 
+  Briefcase, 
+  FileSpreadsheet, 
+  BadgeCheck, 
+  Users, 
+  LineChart, 
+  MessageSquare, 
+  UserCheck, 
+  FileWarning, 
+  ShieldAlert, 
+  UserCheck2, 
+  FileText, 
+  Building, 
+  Lightbulb, 
+  GraduationCap, 
+  Headphones 
+} from "lucide-react";
 
 // Theme toggle component
 const ThemeToggle = () => {
@@ -41,6 +61,25 @@ const ThemeToggle = () => {
         </svg>
       )}
     </button>
+  );
+};
+
+// New IconProductItem component to replace ProductItem
+const IconProductItem = ({ title, description, href, icon: Icon }) => {
+  return (
+    <Link to={href} className="flex items-start gap-3 p-3 rounded-lg group hover:bg-accent/10 transition-colors">
+      <div className="mt-1 p-2 rounded-md bg-primary/10 text-primary">
+        <Icon size={20} />
+      </div>
+      <div>
+        <h3 className="text-base font-medium mb-1 text-foreground group-hover:text-primary transition-colors">
+          {title}
+        </h3>
+        <p className="text-muted-foreground text-sm max-w-[14rem]">
+          {description}
+        </p>
+      </div>
+    </Link>
   );
 };
 
@@ -96,85 +135,127 @@ const Navbar = () => {
           <div className="hidden md:flex">
             <Menu setActive={setActive}>
               <MenuItem setActive={setActive} active={active} item="Education">
-                <div className="grid grid-cols-2 gap-6 p-4 w-[500px] z-50">
-                  <ProductItem
+                <div className="grid grid-cols-2 gap-2 p-5 w-[520px] z-50">
+                  <IconProductItem
                     title="Soft Skills"
                     description="Communication, Time Management, Interview Etiquette"
                     href="/education/soft-skills"
-                    src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?q=80&w=2070&auto=format&fit=crop"
+                    icon={MessageSquare}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Smart Skills"
                     description="Resume building, LinkedIn optimization"
                     href="/education/smart-skills"
-                    src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"
+                    icon={FileText}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Resources"
-                    description="Articles, videos, and downloads"
+                    description="Articles, videos, and downloadable resources"
                     href="/education/resources"
-                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
+                    icon={BookOpen}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Personal Branding"
                     description="Build your professional identity"
                     href="/education/personal-branding"
-                    src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=2069&auto=format&fit=crop"
+                    icon={BadgeCheck}
                   />
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Employment">
-                <div className="grid grid-cols-2 gap-6 p-4 w-[500px]">
-                  <ProductItem
+                <div className="grid grid-cols-2 gap-2 p-5 w-[520px]">
+                  <IconProductItem
                     title="Job Board"
                     description="Verified job opportunities for freshers"
                     href="/employment/job-board"
-                    src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop"
+                    icon={Briefcase}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Internships"
                     description="Find internships to kick-start your career"
                     href="/employment/internships"
-                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2069&auto=format&fit=crop"
+                    icon={GraduationCap}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Industry Trends"
                     description="Stay updated with job market trends"
                     href="/employment/industry-trends"
-                    src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2006&auto=format&fit=crop"
+                    icon={LineChart}
                   />
-                  <ProductItem
+                  <IconProductItem
                     title="Interview Guides"
                     description="Prepare for your next interview"
                     href="/employment/interview-guides"
-                    src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2070&auto=format&fit=crop"
+                    icon={FileSpreadsheet}
                   />
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Scam Awareness">
-                <div className="grid grid-cols-1 gap-4 p-4 w-[350px]">
-                  <HoveredLink href="/scam-awareness/report">Report Fake Job</HoveredLink>
-                  <HoveredLink href="/scam-awareness/red-flags">Red Flags to Watch For</HoveredLink>
-                  <HoveredLink href="/scam-awareness/verified-influencers">Verified Influencer List</HoveredLink>
-                  <HoveredLink href="/scam-awareness/case-studies">Case Studies</HoveredLink>
-                  <HoveredLink href="/scam-awareness/resources">Awareness Resources</HoveredLink>
+                <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
+                  <HoveredLink href="/scam-awareness/report" className="flex items-center gap-2 py-1">
+                    <FileWarning size={16} className="text-primary" />
+                    <span>Report Fake Job</span>
+                  </HoveredLink>
+                  <HoveredLink href="/scam-awareness/red-flags" className="flex items-center gap-2 py-1">
+                    <ShieldAlert size={16} className="text-primary" />
+                    <span>Red Flags to Watch For</span>
+                  </HoveredLink>
+                  <HoveredLink href="/scam-awareness/verified-influencers" className="flex items-center gap-2 py-1">
+                    <UserCheck2 size={16} className="text-primary" />
+                    <span>Verified Influencer List</span>
+                  </HoveredLink>
+                  <HoveredLink href="/scam-awareness/case-studies" className="flex items-center gap-2 py-1">
+                    <FileText size={16} className="text-primary" />
+                    <span>Case Studies</span>
+                  </HoveredLink>
+                  <HoveredLink href="/scam-awareness/resources" className="flex items-center gap-2 py-1">
+                    <BookOpen size={16} className="text-primary" />
+                    <span>Awareness Resources</span>
+                  </HoveredLink>
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Mentorship">
-                <div className="grid grid-cols-1 gap-4 p-4 w-[350px]">
-                  <HoveredLink href="/mentorship/company">Company-wise Mentors</HoveredLink>
-                  <HoveredLink href="/mentorship/subject">Subject-wise Mentors</HoveredLink>
-                  <HoveredLink href="/mentorship/book">Book a Session</HoveredLink>
-                  <HoveredLink href="/mentorship/become-mentor">Become a Mentor</HoveredLink>
-                  <HoveredLink href="/mentorship/success-stories">Success Stories</HoveredLink>
+                <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
+                  <HoveredLink href="/mentorship/company" className="flex items-center gap-2 py-1">
+                    <Building size={16} className="text-primary" />
+                    <span>Company-wise Mentors</span>
+                  </HoveredLink>
+                  <HoveredLink href="/mentorship/subject" className="flex items-center gap-2 py-1">
+                    <Lightbulb size={16} className="text-primary" />
+                    <span>Subject-wise Mentors</span>
+                  </HoveredLink>
+                  <HoveredLink href="/mentorship/book" className="flex items-center gap-2 py-1">
+                    <Headphones size={16} className="text-primary" />
+                    <span>Book a Session</span>
+                  </HoveredLink>
+                  <HoveredLink href="/mentorship/become-mentor" className="flex items-center gap-2 py-1">
+                    <UserCheck size={16} className="text-primary" />
+                    <span>Become a Mentor</span>
+                  </HoveredLink>
+                  <HoveredLink href="/mentorship/success-stories" className="flex items-center gap-2 py-1">
+                    <Users size={16} className="text-primary" />
+                    <span>Success Stories</span>
+                  </HoveredLink>
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="About">
-                <div className="grid grid-cols-1 gap-4 p-4 w-[300px]">
-                  <HoveredLink href="/about/mission">Our Mission</HoveredLink>
-                  <HoveredLink href="/about/team">Meet the Team</HoveredLink>
-                  <HoveredLink href="/about/contact">Contact Us</HoveredLink>
-                  <HoveredLink href="/about/faq">FAQ</HoveredLink>
+                <div className="grid grid-cols-1 gap-2 p-5 w-[300px]">
+                  <HoveredLink href="/about/mission" className="flex items-center gap-2 py-1">
+                    <BookOpen size={16} className="text-primary" />
+                    <span>Our Mission</span>
+                  </HoveredLink>
+                  <HoveredLink href="/about/team" className="flex items-center gap-2 py-1">
+                    <Users size={16} className="text-primary" />
+                    <span>Meet the Team</span>
+                  </HoveredLink>
+                  <HoveredLink href="/about/contact" className="flex items-center gap-2 py-1">
+                    <MessageSquare size={16} className="text-primary" />
+                    <span>Contact Us</span>
+                  </HoveredLink>
+                  <HoveredLink href="/about/faq" className="flex items-center gap-2 py-1">
+                    <FileText size={16} className="text-primary" />
+                    <span>FAQ</span>
+                  </HoveredLink>
                 </div>
               </MenuItem>
             </Menu>
@@ -245,42 +326,102 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-6 flex flex-col gap-6 max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="flex flex-col gap-2 border-b border-border pb-4">
               <h3 className="text-lg font-semibold text-foreground">Education</h3>
-              <Link to="/education/soft-skills" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Soft Skills</Link>
-              <Link to="/education/smart-skills" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Smart Skills</Link>
-              <Link to="/education/resources" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Resources</Link>
-              <Link to="/education/personal-branding" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Personal Branding</Link>
+              <Link to="/education/soft-skills" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <MessageSquare size={16} className="text-primary" />
+                <span>Soft Skills</span>
+              </Link>
+              <Link to="/education/smart-skills" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <FileText size={16} className="text-primary" />
+                <span>Smart Skills</span>
+              </Link>
+              <Link to="/education/resources" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <BookOpen size={16} className="text-primary" />
+                <span>Resources</span>
+              </Link>
+              <Link to="/education/personal-branding" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <BadgeCheck size={16} className="text-primary" />
+                <span>Personal Branding</span>
+              </Link>
             </div>
             
             <div className="flex flex-col gap-2 border-b border-border pb-4">
               <h3 className="text-lg font-semibold text-foreground">Employment</h3>
-              <Link to="/employment/job-board" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Job Board</Link>
-              <Link to="/employment/internships" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Internships</Link>
-              <Link to="/employment/industry-trends" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Industry Trends</Link>
-              <Link to="/employment/interview-guides" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Interview Guides</Link>
+              <Link to="/employment/job-board" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <Briefcase size={16} className="text-primary" />
+                <span>Job Board</span>
+              </Link>
+              <Link to="/employment/internships" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <GraduationCap size={16} className="text-primary" />
+                <span>Internships</span>
+              </Link>
+              <Link to="/employment/industry-trends" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <LineChart size={16} className="text-primary" />
+                <span>Industry Trends</span>
+              </Link>
+              <Link to="/employment/interview-guides" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <FileSpreadsheet size={16} className="text-primary" />
+                <span>Interview Guides</span>
+              </Link>
             </div>
             
             <div className="flex flex-col gap-2 border-b border-border pb-4">
               <h3 className="text-lg font-semibold text-foreground">Scam Awareness</h3>
-              <Link to="/scam-awareness/report" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Report Fake Job</Link>
-              <Link to="/scam-awareness/red-flags" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Red Flags to Watch For</Link>
-              <Link to="/scam-awareness/verified-influencers" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Verified Influencers</Link>
-              <Link to="/scam-awareness/case-studies" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Case Studies</Link>
+              <Link to="/scam-awareness/report" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <FileWarning size={16} className="text-primary" />
+                <span>Report Fake Job</span>
+              </Link>
+              <Link to="/scam-awareness/red-flags" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <ShieldAlert size={16} className="text-primary" />
+                <span>Red Flags to Watch For</span>
+              </Link>
+              <Link to="/scam-awareness/verified-influencers" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <UserCheck2 size={16} className="text-primary" />
+                <span>Verified Influencers</span>
+              </Link>
+              <Link to="/scam-awareness/case-studies" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <FileText size={16} className="text-primary" />
+                <span>Case Studies</span>
+              </Link>
             </div>
             
             <div className="flex flex-col gap-2 border-b border-border pb-4">
               <h3 className="text-lg font-semibold text-foreground">Mentorship</h3>
-              <Link to="/mentorship/company" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Company-wise Mentors</Link>
-              <Link to="/mentorship/subject" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Subject-wise Mentors</Link>
-              <Link to="/mentorship/book" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Book a Session</Link>
-              <Link to="/mentorship/become-mentor" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Become a Mentor</Link>
+              <Link to="/mentorship/company" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <Building size={16} className="text-primary" />
+                <span>Company-wise Mentors</span>
+              </Link>
+              <Link to="/mentorship/subject" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <Lightbulb size={16} className="text-primary" />
+                <span>Subject-wise Mentors</span>
+              </Link>
+              <Link to="/mentorship/book" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <Headphones size={16} className="text-primary" />
+                <span>Book a Session</span>
+              </Link>
+              <Link to="/mentorship/become-mentor" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <UserCheck size={16} className="text-primary" />
+                <span>Become a Mentor</span>
+              </Link>
             </div>
             
             <div className="flex flex-col gap-2 border-b border-border pb-4">
               <h3 className="text-lg font-semibold text-foreground">About</h3>
-              <Link to="/about/mission" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Our Mission</Link>
-              <Link to="/about/team" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Meet the Team</Link>
-              <Link to="/about/contact" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">Contact Us</Link>
-              <Link to="/about/faq" className="px-2 py-1.5 hover:bg-accent/10 rounded-md">FAQ</Link>
+              <Link to="/about/mission" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <BookOpen size={16} className="text-primary" />
+                <span>Our Mission</span>
+              </Link>
+              <Link to="/about/team" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <Users size={16} className="text-primary" />
+                <span>Meet the Team</span>
+              </Link>
+              <Link to="/about/contact" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <MessageSquare size={16} className="text-primary" />
+                <span>Contact Us</span>
+              </Link>
+              <Link to="/about/faq" className="px-2 py-1.5 hover:bg-accent/10 rounded-md flex items-center gap-2">
+                <FileText size={16} className="text-primary" />
+                <span>FAQ</span>
+              </Link>
             </div>
             
             <div className="flex flex-col gap-4 mt-4">

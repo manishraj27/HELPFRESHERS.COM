@@ -6,14 +6,7 @@ const LandingPage = () => {
     <div className="flex flex-col w-full">
       <HeroSection />
       
-      {/* You can add more sections below the hero section */}
-      {/* For example:
-      <FeaturesSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <FAQSection />
-      <ContactSection /> 
-      */}
+
     </div>
   );
 };
