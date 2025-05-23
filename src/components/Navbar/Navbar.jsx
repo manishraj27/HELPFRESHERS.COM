@@ -86,7 +86,27 @@ const IconProductItem = ({ title, description, href, icon: Icon }) => {
 const Navbar = () => {
   const [active, setActive] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const mobileMenuRef = useRef(null);
+
+  // Handle navbar visibility on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(currentScrollY < lastScrollY.current);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -123,8 +143,12 @@ const Navbar = () => {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="relative w-full z-50">
-      <header className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-border bg-background">
+    <div 
+      className={`fixed top-0 left-0 right-0 w-full z-50 transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
+      <header className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="flex items-center gap-6">
           {/* Logo */}
           <Link to="/" className="flex items-center">
@@ -258,13 +282,22 @@ const Navbar = () => {
                   </HoveredLink>
                 </div>
               </MenuItem>
+              <MenuItem setActive={setActive} active={active} item="Resourse">
+                <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
+                  <HoveredLink href="/resources/blogs" className="flex items-center gap-2 py-1">
+                    <FileWarning size={16} className="text-primary" />
+                    <span>Blogs</span>
+                  </HoveredLink>
+                
+                </div>
+              </MenuItem>
             </Menu>
           </div>
         </div>
 
         {/* Right side - Action buttons */}
         <div className="flex items-center gap-4">
-          <ThemeToggle />
+         
 
           <div className="hidden sm:flex items-center gap-4">
             <Link 
@@ -279,6 +312,8 @@ const Navbar = () => {
             >
               Volunteer
             </Link>
+
+            <ThemeToggle />
           </div>
           
           {/* Mobile menu button */}
