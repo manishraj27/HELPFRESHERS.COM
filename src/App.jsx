@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import LandingPage from './components/Pages/LandingPage';
 import StyleGuideVisualizer from './assets/StyleGuideVisualizer';
 import Footer from './components/ui/Footer';
+import NotFound from './components/Pages/NotFound';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/style-guide" element={<StyleGuideVisualizer />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />

@@ -216,79 +216,108 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Scam Awareness">
                 <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
-                  <HoveredLink href="/scam-awareness/report" className="flex items-center gap-2 py-1">
-                    <FileWarning size={16} className="text-primary" />
-                    <span>Report Fake Job</span>
+                  <HoveredLink href="/scam-awareness/report" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <FileWarning size={16} className="text-primary" />
+                      <span>Report Fake Job</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/scam-awareness/red-flags" className="flex items-center gap-2 py-1">
-                    <ShieldAlert size={16} className="text-primary" />
-                    <span>Red Flags to Watch For</span>
+                  <HoveredLink href="/scam-awareness/red-flags" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <ShieldAlert size={16} className="text-primary" />
+                      <span>Red Flags to Watch For</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/scam-awareness/verified-influencers" className="flex items-center gap-2 py-1">
-                    <UserCheck2 size={16} className="text-primary" />
-                    <span>Verified Influencer List</span>
+                  <HoveredLink href="/scam-awareness/verified-influencers" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <UserCheck2 size={16} className="text-primary" />
+                      <span>Verified Influencer List</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/scam-awareness/case-studies" className="flex items-center gap-2 py-1">
-                    <FileText size={16} className="text-primary" />
-                    <span>Case Studies</span>
+                  <HoveredLink href="/scam-awareness/case-studies" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <FileText size={16} className="text-primary" />
+                      <span>Case Studies</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/scam-awareness/resources" className="flex items-center gap-2 py-1">
-                    <BookOpen size={16} className="text-primary" />
-                    <span>Awareness Resources</span>
+                  <HoveredLink href="/scam-awareness/resources" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <BookOpen size={16} className="text-primary" />
+                      <span>Awareness Resources</span>
+                    </div>
                   </HoveredLink>
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Mentorship">
                 <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
-                  <HoveredLink href="/mentorship/company" className="flex items-center gap-2 py-1">
-                    <Building size={16} className="text-primary" />
-                    <span>Company-wise Mentors</span>
+                  <HoveredLink href="/mentorship/company" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <Building size={16} className="text-primary" />
+                      <span>Company-wise Mentors</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/mentorship/subject" className="flex items-center gap-2 py-1">
-                    <Lightbulb size={16} className="text-primary" />
-                    <span>Subject-wise Mentors</span>
+                  <HoveredLink href="/mentorship/subject" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <Lightbulb size={16} className="text-primary" />
+                      <span>Subject-wise Mentors</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/mentorship/book" className="flex items-center gap-2 py-1">
-                    <Headphones size={16} className="text-primary" />
-                    <span>Book a Session</span>
+                  <HoveredLink href="/mentorship/book" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <Headphones size={16} className="text-primary" />
+                      <span>Book a Session</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/mentorship/become-mentor" className="flex items-center gap-2 py-1">
-                    <UserCheck size={16} className="text-primary" />
-                    <span>Become a Mentor</span>
+                  <HoveredLink href="/mentorship/become-mentor" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <UserCheck size={16} className="text-primary" />
+                      <span>Become a Mentor</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/mentorship/success-stories" className="flex items-center gap-2 py-1">
-                    <Users size={16} className="text-primary" />
-                    <span>Success Stories</span>
+                  <HoveredLink href="/mentorship/success-stories" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <Users size={16} className="text-primary" />
+                      <span>Success Stories</span>
+                    </div>
                   </HoveredLink>
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="About">
                 <div className="grid grid-cols-1 gap-2 p-5 w-[300px]">
-                  <HoveredLink href="/about/mission" className="flex items-center gap-2 py-1">
-                    <BookOpen size={16} className="text-primary" />
-                    <span>Our Mission</span>
+                  <HoveredLink href="/about/mission" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <BookOpen size={16} className="text-primary" />
+                      <span>Our Mission</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/about/team" className="flex items-center gap-2 py-1">
-                    <Users size={16} className="text-primary" />
-                    <span>Meet the Team</span>
+                  <HoveredLink href="/about/team" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <Users size={16} className="text-primary" />
+                      <span>Meet the Team</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/about/contact" className="flex items-center gap-2 py-1">
-                    <MessageSquare size={16} className="text-primary" />
-                    <span>Contact Us</span>
+                  <HoveredLink href="/about/contact" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <MessageSquare size={16} className="text-primary" />
+                      <span>Contact Us</span>
+                    </div>
                   </HoveredLink>
-                  <HoveredLink href="/about/faq" className="flex items-center gap-2 py-1">
-                    <FileText size={16} className="text-primary" />
-                    <span>FAQ</span>
+                  <HoveredLink href="/about/faq" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <FileText size={16} className="text-primary" />
+                      <span>FAQ</span>
+                    </div>
                   </HoveredLink>
                 </div>
               </MenuItem>
               <MenuItem setActive={setActive} active={active} item="Resourse">
                 <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
-                  <HoveredLink href="/resources/blogs" className="flex items-center gap-2 py-1">
-                    <FileWarning size={16} className="text-primary" />
-                    <span>Blogs</span>
+                  <HoveredLink href="/resources/blogs" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <FileWarning size={16} className="text-primary" />
+                      <span>Blogs</span>
+                    </div>
                   </HoveredLink>
-                
                 </div>
               </MenuItem>
             </Menu>

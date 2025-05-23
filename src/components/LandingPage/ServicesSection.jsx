@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Briefcase, ShieldCheck, Users } from 'lucide-react';
-import SectionHeading from './ui/section-heading';
+import SectionHeading from '../ui/section-heading';
 
 const services = [
   {

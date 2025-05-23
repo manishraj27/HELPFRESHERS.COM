@@ -1,11 +1,11 @@
 import React from 'react';
-import HeroSection from '../HeroSection';
-import MissionSection from '../MissionSection';
-import ServicesSection from '../ServicesSection';
-import ResourcesSection from '../ResourcesSection';
-import ScamAwareness from '../ScamAwareness';
-import Mentorship from '../Mentorship';
-import Volunteer from '../Volunteer';
+import HeroSection from '../LandingPage/HeroSection';
+import MissionSection from '../LandingPage/MissionSection';
+import ServicesSection from '../LandingPage/ServicesSection';
+import ResourcesSection from '../LandingPage/ResourcesSection';
+import ScamAwareness from '../LandingPage/ScamAwareness';
+import Mentorship from '../LandingPage/Mentorship';
+import Volunteer from '../LandingPage/Volunteer';
 
 const LandingPage = () => {
   return (

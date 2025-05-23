@@ -1,5 +1,5 @@
 import React from 'react';
-import SectionHeading from './ui/section-heading';
+import SectionHeading from '../ui/section-heading';
 import { motion } from 'motion/react';
 import { Shield, GraduationCap, Users, AlertTriangle, BookOpen, BriefcaseIcon } from 'lucide-react';
 
