@@ -14,6 +14,7 @@ import Internships from './components/Employment/Internships';
 import IndustryTrends from './components/Employment/IndustryTrends';
 import InterviewGuides from './components/Employment/InterviewGuides';
 import Volunteer from './components/Volunteer/Volunteer';
+import Mentorship from './components/Mentorship/Mentorship';
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             <Route path="/employment/industry-trends" element={<IndustryTrends />} />
             <Route path="/employment/interview-guides" element={<InterviewGuides />} />
         
-
+            <Route path="mentorship/book" element={<Mentorship />} />
             <Route path='/volunteer' element={<Volunteer/>} />
           </Routes>
         </div>

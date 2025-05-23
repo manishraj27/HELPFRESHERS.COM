@@ -163,28 +163,28 @@ const Volunteer = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="container mx-auto px-4 py-16 mt-[72px] min-h-screen">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-            <Heart className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
+            <Heart className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             Join Our Volunteer Community
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             Help shape the future of technology by mentoring and supporting fresh graduates 
             as they begin their professional journey.
           </p>
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
                 Register for Volunteering
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background border-border">
               <DialogHeader>
                 <DialogTitle>Volunteer Registration</DialogTitle>
                 <DialogDescription>
@@ -194,9 +194,9 @@ const Volunteer = () => {
               
               {isSuccess ? (
                 <div className="text-center py-12">
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Registration Successful!</h3>
-                  <p className="text-gray-600">Thank you for joining our volunteer community. We'll be in touch soon!</p>
+                  <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-semibold text-foreground mb-2">Registration Successful!</h3>
+                  <p className="text-muted-foreground">Thank you for joining our volunteer community. We'll be in touch soon!</p>
                 </div>
               ) : (
                 <Form {...form}>
@@ -466,12 +466,12 @@ const Volunteer = () => {
 
         {/* Volunteer Roles Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">
             Volunteer Opportunities
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {volunteerRoles.map((role, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-shadow bg-card text-card-foreground border-border">
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-blue-100 rounded-lg">
