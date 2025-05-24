@@ -107,7 +107,7 @@ const Mentorship = () => {
                             </Link>
                         </Button>
                         <Button asChild variant="outline" size="lg" className="gap-2">
-                            <Link to="/mentorship/become-mentor">
+                            <Link to="/volunteer">
                                 <UserCheck className="h-5 w-5" />
                                 Become a Mentor
                             </Link>

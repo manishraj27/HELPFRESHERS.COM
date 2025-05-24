@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle, Users, BookOpen, Code, Heart, Clock, Award, Target } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -31,6 +32,7 @@ const formSchema = z.object({
 });
 
 const Volunteer = () => {
+  const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -184,6 +186,15 @@ const Volunteer = () => {
                 Register for Volunteering
               </Button>
             </DialogTrigger>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+           <Button 
+              size="lg" 
+              variant="outline" 
+              className="px-8 py-3 text-lg"
+              onClick={() => navigate('/volunteer/login')}
+            >
+              Volunteer Login
+            </Button>
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background border-border">
               <DialogHeader>
                 <DialogTitle>Volunteer Registration</DialogTitle>
