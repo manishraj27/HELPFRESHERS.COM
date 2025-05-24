@@ -83,11 +83,11 @@ function App() {
                 }
               />
 
-<Route path="/volunteer/set-password" element={<SetPassword />} />
+              <Route path="/volunteer/set-password" element={<SetPassword />} />
 
               {/* Other Routes */}
               <Route path="mentorship/book" element={<Mentorship />} />
-              <Route path='/volunteer' element={<Volunteer/>} />
+              <Route path='/volunteer' element={<Volunteer />} />
             </Routes>
           </div>
           <Footer />
