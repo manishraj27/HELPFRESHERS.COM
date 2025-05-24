@@ -40,6 +40,7 @@ import VolunteerDashboard from './Volunteer/Dashboard';
 import Volunteer from './components/Volunteer/Volunteer';
 import Mentorship from './components/Mentorship/Mentorship';
 import SetPassword from './Volunteer/SetPassword';
+import BookSession from './components/Mentorship/BookSession';
 
 const PublicLayout = ({ children }) => {
   return (
@@ -73,6 +74,7 @@ const AppRoutes = () => {
     { path: '/employment/interview-guides', element: <InterviewGuides /> },
     { path: '/mentorship/book', element: <Mentorship /> },
     { path: '/volunteer', element: <Volunteer /> },
+    { path: '/mentorship/book-a-session', element: <BookSession/> },
     { path: '*', element: <NotFound /> }
   ];
 
@@ -122,6 +124,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      
     </Routes>
   );
 };
