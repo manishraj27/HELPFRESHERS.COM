@@ -105,7 +105,7 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedUserType="admin">
             <AdminLayout>
-              {/* <AdminDashboard /> */}
+              <AdminDashboard />
             </AdminLayout>
           </ProtectedRoute>
         }

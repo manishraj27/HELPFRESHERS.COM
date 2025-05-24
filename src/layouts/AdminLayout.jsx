@@ -1,60 +1,170 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
+import { LayoutDashboard, Users, LogOut, ChevronDown, Menu } from 'lucide-react';
 
-const AdminLayout = ({ children }) => {
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import ThemeToggle from '@/components/ThemeToggle';
+
+const AdminSidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const user = useSelector(state => state.auth.user);
+  const { state } = useSidebar();
 
   const handleLogout = () => {
     dispatch(logout());
     navigate('/admin/login');
   };
 
-  return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white">
-        <div className="p-4">
-          <h2 className="text-2xl font-bold">Admin Panel</h2>
-        </div>
-        <nav className="mt-8">
-          <div className="px-4 space-y-2">
-            <Link
-              to="/admin/dashboard"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/admin/volunteers"
-              className="block px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-            >
-              Manage Volunteers
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-red-400 hover:text-red-300"
-            >
-              Logout
-            </button>
-          </div>
-        </nav>
-      </div>
+  const menuItems = [
+    {
+      title: "Dashboard",
+      icon: LayoutDashboard,
+      href: "/admin/dashboard"
+    },
+    // {
+    //   title: "Manage Volunteers",
+    //   icon: Users,
+    //   href: "/admin/volunteers"
+    // }
+  ];
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <header className="bg-white shadow">
-          <div className="px-4 py-6">
-            <h1 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h1>
-          </div>
-        </header>
-        <main className="p-6">
-          {children}
-        </main>
+  return (
+    <Sidebar className="border-r">
+      <SidebarHeader className="border-b px-4 py-3">
+        <div className="flex items-center gap-2">
+          <Avatar className="h-8 w-8 shrink-0">
+            <AvatarImage src="/admin-avatar.png" alt="Admin" />
+            <AvatarFallback>AD</AvatarFallback>
+          </Avatar>
+          {state === "expanded" && (
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-medium truncate">{user?.name || 'Admin'}</span>
+              <span className="text-xs text-muted-foreground truncate">Administrator</span>
+            </div>
+          )}
+        </div>
+        <ThemeToggle />
+      </SidebarHeader>
+
+      <SidebarContent className="p-2">
+        <nav className="grid gap-1">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-foreground transition-colors hover:bg-accent hover:text-accent-foreground",
+                  isActive && "bg-accent text-accent-foreground font-medium",
+                  state === "collapsed" && "justify-center"
+                )}
+                title={state === "collapsed" ? item.title : undefined}
+              >
+                <item.icon className="h-4 w-4 shrink-0" />
+                {state === "expanded" && <span>{item.title}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+      </SidebarContent>
+      
+      <SidebarFooter className="border-t p-2">
+        {state === "expanded" ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-2 px-2"
+              >
+                <Avatar className="h-5 w-5 shrink-0">
+                  <AvatarImage src="/admin-avatar.png" alt="Admin" />
+                  <AvatarFallback>AD</AvatarFallback>
+                </Avatar>
+                <span className="truncate">{user?.name || 'Admin'}</span>
+                <ChevronDown className="ml-auto h-4 w-4 shrink-0" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              alignOffset={-20}
+              className="w-[180px]"
+            >
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/admin/profile">Profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleLogout}
+            className="w-full"
+            title="Log out"
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
+        )}
+      </SidebarFooter>
+    </Sidebar>
+  );
+};
+
+const AdminLayout = ({ children }) => {
+  return (
+    <SidebarProvider defaultOpen={true}>
+      <div className="flex h-screen w-full bg-background">
+        <AdminSidebar />
+        
+        <div className="flex flex-1 flex-col min-w-0 overflow-hidden">
+          <header className="flex h-14 items-center gap-4 border-b bg-background px-4 shrink-0">
+            <SidebarTrigger className="flex items-center justify-center h-8 w-8 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+              <Menu className="h-4 w-4" />
+            </SidebarTrigger>
+            <Separator orientation="vertical" className="h-6" />
+            <div className="font-semibold">Admin Dashboard</div>
+          </header>
+          
+          <main className="flex-1 overflow-auto">
+            <div className="h-full">
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
