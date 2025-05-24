@@ -282,6 +282,16 @@ const Navbar = () => {
                   </HoveredLink>
                 </div>
               </MenuItem>
+              <MenuItem setActive={setActive} active={active} item="Resourse">
+                <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
+                  <HoveredLink href="/resources/blogs" className="flex items-center justify-between w-full py-1">
+                    <div className="flex items-center gap-2">
+                      <FileWarning size={16} className="text-primary" />
+                      <span>Blogs</span>
+                    </div>
+                  </HoveredLink>
+                </div>
+              </MenuItem>
               <MenuItem setActive={setActive} active={active} item="About">
                 <div className="grid grid-cols-1 gap-2 p-5 w-[300px]">
                   <HoveredLink href="/about/mission" className="flex items-center justify-between w-full py-1">
@@ -306,16 +316,6 @@ const Navbar = () => {
                     <div className="flex items-center gap-2">
                       <FileText size={16} className="text-primary" />
                       <span>FAQ</span>
-                    </div>
-                  </HoveredLink>
-                </div>
-              </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="Resourse">
-                <div className="grid grid-cols-1 gap-2 p-5 w-[320px]">
-                  <HoveredLink href="/resources/blogs" className="flex items-center justify-between w-full py-1">
-                    <div className="flex items-center gap-2">
-                      <FileWarning size={16} className="text-primary" />
-                      <span>Blogs</span>
                     </div>
                   </HoveredLink>
                 </div>

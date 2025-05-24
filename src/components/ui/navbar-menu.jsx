@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 
 const transition = {
   type: "spring",
@@ -18,7 +19,11 @@ export const MenuItem = ({
   children
 }) => {
   return (
-    (<div onMouseEnter={() => setActive(item)} className="relative">
+    <div 
+      onMouseEnter={() => setActive(item)} 
+      onClick={() => setActive(null)} // Add this line to close menu on click
+      className="relative"
+    >
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-foreground hover:text-primary">
@@ -46,7 +51,7 @@ export const MenuItem = ({
           )}
         </motion.div>
       )}
-    </div>)
+    </div>
   );
 };
 
@@ -89,15 +94,13 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({
-  children,
-  ...rest
-}) => {
+export const HoveredLink = ({ href, children, ...rest }) => {
   return (
-    (<a
+    <Link
+      to={href} // Convert href to 'to' prop for React Router
       {...rest}
       className="text-foreground/80 hover:text-primary transition-colors">
       {children}
-    </a>)
+    </Link>
   );
 };
