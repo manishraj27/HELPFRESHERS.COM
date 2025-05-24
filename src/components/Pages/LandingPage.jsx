@@ -11,10 +11,20 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col w-full">
       <HeroSection />
-      
+
       {/* Mission Statement Section */}
       <section className="py-20 bg-background">
         <MissionSection />
+      </section>
+
+      {/* Mentorship Section */}
+      <section className="py-20 bg-background">
+        <Mentorship />
+      </section>
+
+      {/* Volunteer Section */}
+      <section className="py-20 bg-muted/50">
+        <Volunteer />
       </section>
 
       {/* Key Services Section */}
@@ -32,15 +42,7 @@ const LandingPage = () => {
         <ScamAwareness />
       </section>
 
-      {/* Mentorship Section */}
-      <section className="py-20 bg-background">
-        <Mentorship />
-      </section>
 
-      {/* Volunteer Section */}
-      <section className="py-20 bg-muted/50">
-        <Volunteer />
-      </section>
     </div>
   );
 };
