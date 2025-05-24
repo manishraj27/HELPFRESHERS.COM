@@ -42,6 +42,7 @@ import Mentorship from './components/Mentorship/Mentorship';
 import SetPassword from './Volunteer/SetPassword';
 import BookSession from './components/Mentorship/BookSession';
 import VolunteerSessions from './Volunteer/VolunteerSessions';
+import SessionDashboard from './Volunteer/SessionDashboard';
 
 const PublicLayout = ({ children }) => {
   return (
@@ -131,7 +132,7 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedUserType="volunteer">
             <VolunteerLayout>
-              <VolunteerSessions />
+              <SessionDashboard />
             </VolunteerLayout>
           </ProtectedRoute>
         }

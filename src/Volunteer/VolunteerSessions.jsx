@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -25,14 +25,45 @@ const VolunteerSessions = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('pending');
+  const [volunteerProfile, setVolunteerProfile] = useState(null);
   
-  const { token, user } = useSelector((state) => state.auth);
+  const { token, isAuthenticated } = useSelector((state) => state.auth);
+  const { profile } = useSelector((state) => state.user);
+
+  // Fetch volunteer profile first
+  useEffect(() => {
+    const fetchVolunteerProfile = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/volunteers/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setVolunteerProfile(data.data);
+        } else {
+          console.error('Failed to fetch volunteer profile');
+        }
+      } catch (error) {
+        console.error('Error fetching volunteer profile:', error);
+      }
+    };
+
+    if (token && isAuthenticated) {
+      fetchVolunteerProfile();
+    }
+  }, [token, isAuthenticated]);
 
   // Fetch sessions
   useEffect(() => {
     const fetchSessions = async () => {
+      if (!volunteerProfile?._id) return;
+
       try {
-        const response = await fetch(`http://localhost:5000/api/sessions/volunteer/${user.id}`, {
+        const response = await fetch(`http://localhost:5000/api/sessions/volunteer/${volunteerProfile._id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -44,18 +75,18 @@ const VolunteerSessions = () => {
           setSessions(data.data || []);
         } else {
           console.error('Failed to fetch sessions');
+          setSessions([]);
         }
       } catch (error) {
         console.error('Error fetching sessions:', error);
+        setSessions([]);
       } finally {
         setLoading(false);
       }
     };
 
-    if (user?.id && token) {
-      fetchSessions();
-    }
-  }, [user?.id, token]);
+    fetchSessions();
+  }, [volunteerProfile?._id, token]);
 
   // Filter sessions
   useEffect(() => {
@@ -64,8 +95,8 @@ const VolunteerSessions = () => {
     // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(session =>
-        session.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        session.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        session.user?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        session.user?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         session.topic?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -145,7 +176,7 @@ const VolunteerSessions = () => {
     setSelectedSession(session);
     setActionType(action);
     setIsActionModalOpen(true);
-    setMeetLink('');
+    setMeetLink(session.meetLink || '');
     setStatusMessage({ type: '', message: '' });
   };
 
@@ -178,7 +209,7 @@ const VolunteerSessions = () => {
     <Card className="hover:shadow-md transition-shadow duration-200">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">{session.user.name}</CardTitle>
+          <CardTitle className="text-lg">{session.user?.name || 'Unknown User'}</CardTitle>
           <Badge className={`${getStatusColor(session.status)} capitalize`}>
             {session.status}
           </Badge>
@@ -193,10 +224,10 @@ const VolunteerSessions = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-2">
             <Mail className="w-4 h-4 text-gray-500" />
-            <span>{session.user.email}</span>
+            <span>{session.user?.email || 'No email'}</span>
           </div>
           
-          {session.user.phone && (
+          {session.user?.phone && (
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gray-500" />
               <span>{session.user.phone}</span>
@@ -216,7 +247,7 @@ const VolunteerSessions = () => {
           )}
         </div>
 
-        {session.user.background && (
+        {session.user?.background && (
           <div>
             <h4 className="font-medium text-sm mb-1">Background:</h4>
             <p className="text-sm text-gray-600 line-clamp-3">{session.user.background}</p>
@@ -278,6 +309,20 @@ const VolunteerSessions = () => {
     </Card>
   );
 
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardContent className="text-center py-12">
+            <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Authentication Required</h3>
+            <p className="text-gray-600">Please log in to view your sessions.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 p-6">
@@ -298,6 +343,11 @@ const VolunteerSessions = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">My Sessions</h1>
           <p className="text-gray-600">Manage your mentorship session requests</p>
+          {sessions.length > 0 && (
+            <p className="text-sm text-gray-500 mt-1">
+              Total sessions: {sessions.length}
+            </p>
+          )}
         </div>
 
         {/* Search and Filters */}
@@ -453,8 +503,8 @@ const VolunteerSessions = () => {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="font-medium mb-2">Session Details:</h4>
                   <div className="text-sm space-y-1">
-                    <p><strong>Student:</strong> {selectedSession.user.name}</p>
-                    <p><strong>Topic:</strong> {selectedSession.topic}</p>
+                    <p><strong>Student:</strong> {selectedSession.user?.name || 'Unknown'}</p>
+                    <p><strong>Topic:</strong> {selectedSession.topic || 'No topic specified'}</p>
                     <p><strong>Scheduled:</strong> {formatDate(selectedSession.scheduledFor)}</p>
                   </div>
                 </div>
@@ -500,4 +550,4 @@ const VolunteerSessions = () => {
   );
 };
 
-export default VolunteerSessions;
+export default VolunteerSessions; 
